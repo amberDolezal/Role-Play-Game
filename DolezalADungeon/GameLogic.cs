@@ -20,6 +20,8 @@ namespace DolezalADungeon
         private bool playerHasLost = false;
         private bool heroHasDied = false;
         private bool enemyHasDied = false;
+        private int numberOfWins = 0;
+        private int numberOfGames = 0;
 
         public event EventHandler<UpdateEventArgs> Update;
 
@@ -33,12 +35,8 @@ namespace DolezalADungeon
             FillTurnOrderEnemies();
             currentTurnHero = 0;
             currentTurnEnemy = 0;
-            encounterCount = 0; 
-        }
-
-        public void Start()
-        {
-            throw new System.NotImplementedException();
+            encounterCount = 0;
+            LoadRecords();  
         }
 
         public void FillTurnOrderHeros()
@@ -214,13 +212,13 @@ namespace DolezalADungeon
             else if (e.Action.Equals("Special"))
             {
                 turnOrderHeros[currentTurnHero].Special(turnOrderHeros[e.HeroTag]);
- 
             }
             CheckIfPlayerWon();
             if (encounterCount % 2 != 0 && (playerHasWon == false || playerHasLost))
             {
                 attackPoints = EnemyTurn(turnOrderEnemies[currentTurnEnemy]);
             }
+            CheckIfHeroDied(turnOrderHeros[e.HeroTag]);
             CheckIfPlayerLost();
             UpdateTurnNumber();
             UpdateGUI();
@@ -254,11 +252,12 @@ namespace DolezalADungeon
 
         private void KeepUpdatingEnemyTurn()
         {
-            if(playerHasWon == false)
+            CheckIfPlayerWon();
+            if (playerHasWon == false)
             {
-                while (turnOrderEnemies[currentTurnEnemy].CurrentHitPoints == 0)
+                while (turnOrderEnemies[currentTurnEnemy].CurrentHitPoints <= 0)
                 {
-                    if (currentTurnEnemy < TurnOrderEnemies.Count - 2)
+                    if (currentTurnEnemy < TurnOrderEnemies.Count - 1)
                     {
                         currentTurnEnemy++;
                     }
@@ -272,9 +271,10 @@ namespace DolezalADungeon
 
         private void KeepUpdatingHeroTurn()
         {
-            if(playerHasLost == false)
+            CheckIfPlayerLost();
+            if (playerHasLost == false)
             {
-                while (turnOrderHeros[currentTurnHero].CurrentHitPoints == 0)
+                while (turnOrderHeros[currentTurnHero].CurrentHitPoints <= 0)
                 {
                     if (currentTurnHero < 2)
                     {
@@ -294,14 +294,14 @@ namespace DolezalADungeon
             int countOfDeadEnimes = 0;
             foreach (var enemy in turnOrderEnemies)
             {
-                if (turnOrderEnemies[turnOrderEnemies.IndexOf(enemy)].CurrentHitPoints == 0)
+                if (turnOrderEnemies[turnOrderEnemies.IndexOf(enemy)].CurrentHitPoints <= 0)
                 {
                     countOfDeadEnimes++;
                 }
             }
             if (TurnOrderEnemies.Count == countOfDeadEnimes)
             {
-                playerHasWon = true;    
+                playerHasWon = true;
             }
         }
 
@@ -310,17 +310,54 @@ namespace DolezalADungeon
             int countOfDeadHeros = 0;
             foreach (var hero in turnOrderHeros)
             {
-                if (turnOrderHeros[turnOrderHeros.IndexOf(hero)].CurrentHitPoints == 0)
+                if (turnOrderHeros[turnOrderHeros.IndexOf(hero)].CurrentHitPoints <= 0)
                 {
                     countOfDeadHeros++;
                 }
             }
             if (turnOrderHeros.Count == countOfDeadHeros)
             {
-                PlayerHasLost = true;   
+                PlayerHasLost = true; 
             }
         }
 
+        //Reads Records.txt to get number of games played, number of wins, and the total time played for every game
+        private void LoadRecords()
+        {
+            try
+            {
+                StreamReader reader = new StreamReader("Records.txt");
+                if (!reader.EndOfStream)
+                {
+                    numberOfGames = int.Parse(reader.ReadLine());
+                }
+                if (!reader.EndOfStream)
+                {
+                    numberOfWins = int.Parse(reader.ReadLine());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //Saves the number of games played, number of wins, and total time played to Records.txt
+        public void WriteRecords()
+        {
+            try
+            {
+                StreamWriter writer = new StreamWriter("Records.txt");
+                writer.WriteLine(numberOfGames.ToString());
+                writer.WriteLine(numberOfWins.ToString());
+                writer.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         public List<Character> TurnOrderHeros { get => turnOrderHeros; }
         public List<Character> TurnOrderEnemies { get => turnOrderEnemies; }
@@ -335,5 +372,7 @@ namespace DolezalADungeon
         public int PreviousTurnHero { get => previousTurnHero; set => previousTurnHero = value; }
         public bool HeroHasDied { get => heroHasDied; set => heroHasDied = value; }
         public bool EnemyHasDied { get => enemyHasDied; set => enemyHasDied = value; }
+        public int NumberOfWins { get => numberOfWins; set => numberOfWins = value; }
+        public int NumberOfGames { get => numberOfGames; set => numberOfGames = value; }
     }
 }

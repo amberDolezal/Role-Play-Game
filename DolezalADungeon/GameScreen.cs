@@ -29,6 +29,9 @@ namespace DolezalADungeon
             this.gameLogic = game;
             heroList = gameLogic.TurnOrderHeros;
             enemyList = gameLogic.TurnOrderEnemies;
+            gameLogic.NumberOfGames++;
+            UpdateWinsLabel(gameLogic.NumberOfWins);
+            UpdateGamesLabel(gameLogic.NumberOfGames);
             PrepBoard();
             FillStatsHero();
             heroStats.SendToBack();
@@ -131,6 +134,7 @@ namespace DolezalADungeon
                 heroPB.SizeMode = PictureBoxSizeMode.StretchImage;
                 heroPB.Name = heroList[2].Name;
             }
+
         }
 
         public void FillEnemyPictureBox(PictureBox heroPB, int enemyNum)
@@ -197,6 +201,8 @@ namespace DolezalADungeon
             if (gameLogic.PlayerHasWon)
             {
                 MessageBox.Show("You win this level!");
+                gameLogic.NumberOfWins++;
+                gameLogic.WriteRecords();
                 Application.Restart();
             }
         }
@@ -206,21 +212,34 @@ namespace DolezalADungeon
             if (gameLogic.PlayerHasLost)
             {
                 MessageBox.Show("You lost this level! Try Again.");
+                gameLogic.WriteRecords();
                 Application.Restart();
             }
         }
         public void CheckIfHeroIsDead(int heroIndex)
         {
-            if (gameLogic.TurnOrderHeros[heroIndex].CurrentHitPoints == 0)
+            if (gameLogic.TurnOrderHeros[heroIndex].CurrentHitPoints <= 0)
             {
                 heroPBs[heroIndex].Image = null;
             }  
         }
         public void CheckIfEnemyIsDead(int enemyIndex)
         {
-            if (gameLogic.TurnOrderEnemies[enemyIndex].CurrentHitPoints == 0)
+            if (gameLogic.TurnOrderEnemies[enemyIndex].CurrentHitPoints <= 0)
             {
                 enemyPBs[enemyIndex].Image = null;
+            }
+        }
+        private void SpecialBtnVisibility(int characterIndex)
+        {
+            if (gameLogic.TurnOrderHeros[characterIndex].GetType() == typeof(Cleric))
+            {
+                specialBtn.Visible = true;
+                specialBtn.Text = gameLogic.TurnOrderHeros[characterIndex].SpecialName1;
+            }
+            else
+            {
+                specialBtn.Visible = false;
             }
         }
 
@@ -263,17 +282,15 @@ namespace DolezalADungeon
             SpecialBtnVisibility(gameLogic.CurrentTurnHero);
         }
 
-        private void SpecialBtnVisibility(int characterIndex)
+        //Updates wins in menu strip
+        private void UpdateWinsLabel(int numberOfWins)
         {
-            if (gameLogic.TurnOrderHeros[characterIndex].GetType() == typeof(Cleric))
-            {
-                specialBtn.Visible = true;
-                specialBtn.Text = gameLogic.TurnOrderHeros[characterIndex].SpecialName1;
-            }
-            else
-            {
-                specialBtn.Visible = false;
-            }
+            wins0ToolStripMenuItem.Text = $"Wins: {numberOfWins}";
+        }
+        //Updates number of games in menu strip
+        private void UpdateGamesLabel(int numberOfGames)
+        {
+            games0ToolStripMenuItem.Text = $"Games: {numberOfGames}";
         }
 
         public void ActionButtonClick_Handler(object sender, EventArgs e)
@@ -370,6 +387,16 @@ namespace DolezalADungeon
         protected virtual void OnTurnReady(object sender, TurnReadyEventArgs e)
         {
             TurnReady?.Invoke(sender, e);
+        }
+
+        private void restartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
+        private void instructionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

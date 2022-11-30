@@ -154,7 +154,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(2441, 40);
+            this.menuStrip1.Size = new System.Drawing.Size(2441, 42);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -165,20 +165,22 @@
             this.instructionsToolStripMenuItem,
             this.gameStatisticsToolStripMenuItem});
             this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
-            this.gameToolStripMenuItem.Size = new System.Drawing.Size(96, 36);
+            this.gameToolStripMenuItem.Size = new System.Drawing.Size(96, 38);
             this.gameToolStripMenuItem.Text = "Game";
             // 
             // restartToolStripMenuItem
             // 
             this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
-            this.restartToolStripMenuItem.Size = new System.Drawing.Size(307, 44);
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.restartToolStripMenuItem.Text = "Restart";
+            this.restartToolStripMenuItem.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
             // 
             // instructionsToolStripMenuItem
             // 
             this.instructionsToolStripMenuItem.Name = "instructionsToolStripMenuItem";
-            this.instructionsToolStripMenuItem.Size = new System.Drawing.Size(307, 44);
+            this.instructionsToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.instructionsToolStripMenuItem.Text = "Exit";
+            this.instructionsToolStripMenuItem.Click += new System.EventHandler(this.instructionsToolStripMenuItem_Click);
             // 
             // gameStatisticsToolStripMenuItem
             // 
@@ -186,7 +188,7 @@
             this.wins0ToolStripMenuItem,
             this.games0ToolStripMenuItem});
             this.gameStatisticsToolStripMenuItem.Name = "gameStatisticsToolStripMenuItem";
-            this.gameStatisticsToolStripMenuItem.Size = new System.Drawing.Size(307, 44);
+            this.gameStatisticsToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.gameStatisticsToolStripMenuItem.Text = "Game Statistics";
             // 
             // wins0ToolStripMenuItem
@@ -207,7 +209,7 @@
             this.instructionsToolStripMenuItem1,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(84, 36);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(84, 38);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // instructionsToolStripMenuItem1
