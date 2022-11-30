@@ -22,6 +22,7 @@ namespace DolezalADungeon
         private bool enemyHasDied = false;
         private int numberOfWins = 0;
         private int numberOfGames = 0;
+        private int dragonSpecialAttack = 0;
 
         public event EventHandler<UpdateEventArgs> Update;
 
@@ -173,17 +174,37 @@ namespace DolezalADungeon
             turnOrderHeros[currentTurnHero].Defend(turnOrderEnemies[enemyNum], attackPoints);
         }
 
-        public int EnemyTurn(Character enemy)
-        {   
+        public List<int> EnemyTurn(Character enemy)
+        {
+            List<int> result = new List<int>();
+            int attackPoints = 0;
+            int chooseDragonAttack = 0;
             int attackPlayer = characterInt.Next(3);
-            while (turnOrderHeros[attackPlayer].CurrentHitPoints == 0)
+            while (turnOrderHeros[attackPlayer].CurrentHitPoints <= 0)
             {
                 attackPlayer = characterInt.Next(3);
             }
             heroBeingAttacked = attackPlayer;
-            int attackPoints = enemy.Attack(turnOrderHeros[attackPlayer]);
+            if(enemy.GetType() == typeof(Dragon))
+            {
+                chooseDragonAttack = characterInt.Next(2);
+                if (chooseDragonAttack == 0)
+                {
+                    attackPoints = enemy.Attack(turnOrderHeros[attackPlayer]);
+                }
+                else if (chooseDragonAttack == 1)
+                {
+                    attackPoints = enemy.Special(turnOrderHeros, attackPlayer);
+                }
+            }
+            else
+            {
+                attackPoints = enemy.Attack(turnOrderHeros[attackPlayer]);
+            }
             CheckIfHeroDied(turnOrderHeros[attackPlayer]);
-            return attackPoints;
+            result.Add(attackPoints);
+            result.Add(chooseDragonAttack);
+            return result;
         }
 
         public void GenerateEncounter()
@@ -204,6 +225,7 @@ namespace DolezalADungeon
         
         public void OnTurnReady_Handler(object sender, TurnReadyEventArgs e)
         {
+            List<int> enemyTurnResults = new List<int>();
             if (e.Action.Equals("Attack"))
             {
                 turnOrderHeros[currentTurnHero].Attack(turnOrderEnemies[e.EnemyTag]);
@@ -211,12 +233,14 @@ namespace DolezalADungeon
             }
             else if (e.Action.Equals("Special"))
             {
-                turnOrderHeros[currentTurnHero].Special(turnOrderHeros[e.HeroTag]);
+                turnOrderHeros[currentTurnHero].Special(turnOrderHeros, e.HeroTag);
             }
             CheckIfPlayerWon();
             if (encounterCount % 2 != 0 && (playerHasWon == false || playerHasLost))
             {
-                attackPoints = EnemyTurn(turnOrderEnemies[currentTurnEnemy]);
+                enemyTurnResults = EnemyTurn(turnOrderEnemies[currentTurnEnemy]);
+                attackPoints = enemyTurnResults[0];
+                dragonSpecialAttack = enemyTurnResults[1];
             }
             CheckIfHeroDied(turnOrderHeros[e.HeroTag]);
             CheckIfPlayerLost();
@@ -374,5 +398,6 @@ namespace DolezalADungeon
         public bool EnemyHasDied { get => enemyHasDied; set => enemyHasDied = value; }
         public int NumberOfWins { get => numberOfWins; set => numberOfWins = value; }
         public int NumberOfGames { get => numberOfGames; set => numberOfGames = value; }
+        public int DragonSpecialAttack { get => dragonSpecialAttack; set => dragonSpecialAttack = value; }
     }
 }

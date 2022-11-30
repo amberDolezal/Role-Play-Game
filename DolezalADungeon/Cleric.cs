@@ -18,16 +18,24 @@ namespace DolezalADungeon
         private static string specialName = "Heal";
         private static int clericSkillPoints = 20;
 
-        public Cleric() : base(specialName, specialName, clericSkillPoints, clericName, clericSpriteName, clericHitPoints, clericSpeed, clericStrength,
+        public Cleric() : base(specialName, clericSkillPoints, clericName, clericSpriteName, clericHitPoints, clericSpeed, clericStrength,
             clericIntelligence, clericDefense, clericMagicDefense)
         {
         }
 
-        public override void Special(Character hero)
+        public override int Special(List<Character> heros, int heroIndex)
         {
             int healHitPointsBy;
             healHitPointsBy = clericIntelligence / 2;
-            hero.CurrentHitPoints = hero.CurrentHitPoints + healHitPointsBy;
+            if(heros[heroIndex].CurrentHitPoints + healHitPointsBy <= heros[heroIndex].HitPoints)
+            {
+                heros[heroIndex].CurrentHitPoints = heros[heroIndex].CurrentHitPoints + healHitPointsBy;
+            }
+            else
+            {
+                heros[heroIndex].CurrentHitPoints = heros[heroIndex].HitPoints;  
+            }
+            return 0;
         }
     }
 }

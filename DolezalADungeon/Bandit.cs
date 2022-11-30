@@ -18,10 +18,10 @@ namespace DolezalADungeon
         private static int banditMagicDefense = 15;
         private static string banditName = "Bandit";
         private static string banditSpriteName = "C:\\Users\\macmi\\OneDrive\\Documents\\CS 3020\\DolezalADungeon\\sprites\\Bandit.png";
-        private static string specialName = "No Special";
+        private static string specialName = "";
         private static int banditSkillPoints = 0;
 
-        public Bandit() : base(specialName, specialName, banditSkillPoints, banditName, banditSpriteName, banditHitPoints, banditSpeed, banditStrength, 
+        public Bandit() : base(specialName, banditSkillPoints, banditName, banditSpriteName, banditHitPoints, banditSpeed, banditStrength, 
             banditIntelligence, banditDefense, banditMagicDefense)
         {
         }

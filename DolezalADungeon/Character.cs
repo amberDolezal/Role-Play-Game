@@ -19,12 +19,11 @@ namespace DolezalADungeon
         private int magicDefense;
         private double currentHitPoints;
         private int skillPoints;
-        private string specialName1;
-        private string specialName2;    
+        private string specialName;  
         #endregion
 
         #region Constructors
-        public Character(string name, string spriteName, double hitPoints, int speed, int strength, int intelligence, int defense, int magicDefense, int skillPoints, string specialName1, string specialName2)
+        public Character(string name, string spriteName, double hitPoints, int speed, int strength, int intelligence, int defense, int magicDefense, int skillPoints, string specialName)
         {
             this.name = name;
             this.spriteName = spriteName;
@@ -37,8 +36,7 @@ namespace DolezalADungeon
             this.isDefending = false;
             this.magicDefense = magicDefense;
             this.skillPoints = skillPoints;
-            this.specialName1 = specialName1;
-            this.specialName2 = specialName2;
+            this.specialName = specialName;
         }
         public Character()
         {
@@ -59,8 +57,7 @@ namespace DolezalADungeon
         public int MagicDefense { get => magicDefense; }
         public double CurrentHitPoints { get => currentHitPoints; set => currentHitPoints = value; }
         public int SkillPoints { get => skillPoints; }
-        public string SpecialName1 { get => specialName1; }
-        public string SpecialName2 { get => specialName2; }
+        public string SpecialName { get => specialName; }
         #endregion
 
         #region Methods
@@ -73,13 +70,14 @@ namespace DolezalADungeon
 
         public void Defend(Character attacker, int attackPoints)
         {
-            int reduceAttackPointsBy = attackPoints*(defense/10);
+            int reduceAttackPointsBy = attackPoints-(defense/10);
             currentHitPoints = currentHitPoints + reduceAttackPointsBy;
         }
 
-        public virtual void Special(Character target)
+        public virtual int Special(List<Character> characters, int target)
         {
-
+            specialName = "";
+            return 0;
         }
         #endregion
     }

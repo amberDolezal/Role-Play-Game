@@ -15,27 +15,51 @@ namespace DolezalADungeon
         private static int dragonMagicDefense = 45;
         private static string dragonName = "Dragon";
         private static string dragonSpriteName = "C:\\Users\\macmi\\OneDrive\\Documents\\CS 3020\\DolezalADungeon\\sprites\\Dragon.png";
-        private static string special1 = "Breathe Fire";
-        private static string special2 = "Swipe Attack";
+        private static string specialName = "";
+        private string special1 = "Breathe Fire";
+        private string special2 = "Swipe Attack";
         private static int dragonSkillPoints = 20;
+        private int dragonSpecialChoice = 0;
 
-        public Dragon() : base(special1, special2, dragonSkillPoints, dragonName, dragonSpriteName, dragonHitPoints, dragonSpeed, dragonStrength,
+        public Dragon() : base(specialName, dragonSkillPoints, dragonName, dragonSpriteName, dragonHitPoints, dragonSpeed, dragonStrength,
             dragonIntelligence, dragonDefense, dragonMagicDefense)
         {
         }
 
-        public int BreatheFire()
+        public override int Special(List<Character> heros, int heroIndex)
         {
-            int reduceHitPointsBy;
-            reduceHitPointsBy = dragonStrength/3;
-            return reduceHitPointsBy;
+            Random specialChoice = new Random();
+            int attackPoints = 0;
+
+            if(dragonSpecialChoice == 0)
+            {
+                specialName = special1;
+                attackPoints = BreatheFire(heros[heroIndex]);
+            }
+            else
+            {
+                specialName = special2;
+                foreach(Character hero in heros)
+                {
+                   attackPoints = SwipeAttack(hero);
+                } 
+            }
+            return attackPoints;    
+        }
+        //Breathe Fire Special
+        public int BreatheFire(Character hero)
+        {
+            int breathFireReduceHitBy = dragonStrength/3;
+            hero.CurrentHitPoints = hero.CurrentHitPoints - breathFireReduceHitBy;
+            return breathFireReduceHitBy;
         }
 
-        public int SwipeAttack()
+        //Swipe Attack Special 
+        public int SwipeAttack(Character hero)
         {
-            int reduceHitPointsBy;
-            reduceHitPointsBy=dragonStrength/3;
-            return reduceHitPointsBy;
+            int SwipeAttackReduceHitBy = dragonStrength / 2;
+            hero.CurrentHitPoints = hero.CurrentHitPoints - SwipeAttackReduceHitBy;
+            return SwipeAttackReduceHitBy;
         }
     }
 }

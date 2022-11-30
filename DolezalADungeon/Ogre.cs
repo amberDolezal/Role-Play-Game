@@ -16,10 +16,10 @@ namespace DolezalADungeon
         private static int ogreMagicDefense = 15;
         private static string ogreName = "Orge";
         private static string ogreSpriteName = "C:\\Users\\macmi\\OneDrive\\Documents\\CS 3020\\DolezalADungeon\\sprites\\Ogre.png";
-        private static string specialName = "No Special";
+        private static string specialName = "";
         private static int ogreSkillPoints = 0;
 
-        public Ogre() : base(specialName, specialName, ogreSkillPoints, ogreName, ogreSpriteName, ogreHitPoints, ogreSpeed, ogreStrength,
+        public Ogre() : base(specialName, ogreSkillPoints, ogreName, ogreSpriteName, ogreHitPoints, ogreSpeed, ogreStrength,
             ogreIntelligence, ogreDefense, ogreMagicDefense)
         {
         }

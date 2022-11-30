@@ -15,10 +15,10 @@ namespace DolezalADungeon
         private static int mageMagicDefense = 15;
         private static string mageName = "Mage";
         private static string mageSpriteName = "C:\\Users\\macmi\\OneDrive\\Documents\\CS 3020\\DolezalADungeon\\sprites\\Mage.png";
-        private static string specialName = "No Special";
+        private static string specialName = "";
         private static int mageSkillPoints = 0;
 
-        public Mage() : base(specialName, specialName, mageSkillPoints, mageName, mageSpriteName, mageHitPoints, mageSpeed, mageStrength,
+        public Mage() : base(specialName, mageSkillPoints, mageName, mageSpriteName, mageHitPoints, mageSpeed, mageStrength,
             mageIntelligence, mageDefense, mageMagicDefense)
         {
         }

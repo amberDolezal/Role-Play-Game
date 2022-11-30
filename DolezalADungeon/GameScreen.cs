@@ -216,18 +216,25 @@ namespace DolezalADungeon
                 Application.Restart();
             }
         }
-        public void CheckIfHeroIsDead(int heroIndex)
+        public void CheckIfHeroIsDead(List<Character> heros)
         {
-            if (gameLogic.TurnOrderHeros[heroIndex].CurrentHitPoints <= 0)
+            foreach(var hero in heros)
             {
-                heroPBs[heroIndex].Image = null;
-            }  
+                if (hero.CurrentHitPoints <= 0)
+                {
+                    heroPBs[heros.IndexOf(hero)].Image = null;
+                }
+            }
+ 
         }
-        public void CheckIfEnemyIsDead(int enemyIndex)
+        public void CheckIfEnemyIsDead(List<Character> enemies)
         {
-            if (gameLogic.TurnOrderEnemies[enemyIndex].CurrentHitPoints <= 0)
+            foreach (var enemy in enemies)
             {
-                enemyPBs[enemyIndex].Image = null;
+                if (enemy.CurrentHitPoints <= 0)
+                {
+                    enemyPBs[enemies.IndexOf(enemy)].Image = null;
+                }
             }
         }
         private void SpecialBtnVisibility(int characterIndex)
@@ -235,7 +242,7 @@ namespace DolezalADungeon
             if (gameLogic.TurnOrderHeros[characterIndex].GetType() == typeof(Cleric))
             {
                 specialBtn.Visible = true;
-                specialBtn.Text = gameLogic.TurnOrderHeros[characterIndex].SpecialName1;
+                specialBtn.Text = gameLogic.TurnOrderHeros[characterIndex].SpecialName;
             }
             else
             {
@@ -247,10 +254,8 @@ namespace DolezalADungeon
         {
             UpdateEnemyStats();
             UpdateHeroStats();
-            CheckIfHeroIsDead(gameLogic.PreviousTurnHero);
-            CheckIfEnemyIsDead(gameLogic.PreviousTurnEnemy);
-            CheckIfHeroIsDead(gameLogic.CurrentTurnHero);
-            CheckIfEnemyIsDead(gameLogic.CurrentTurnEnemy);
+            CheckIfHeroIsDead(gameLogic.TurnOrderHeros);
+            CheckIfEnemyIsDead(gameLogic.TurnOrderEnemies);
             CheckIfPlayerLost();
             CheckIfPlayerWon();
 
@@ -265,12 +270,38 @@ namespace DolezalADungeon
             }
             if (gameLogic.EncounterCount % 2 != 0)
             {
-                heroPBs[gameLogic.HeroBeingAttacked].BackColor = Color.Yellow;
-                enemyPBs[gameLogic.CurrentTurnEnemy].BackColor = Color.Green;
-                defendBtn.Enabled = true;
-                attackBtn.Enabled = true;
-                specialBtn.Enabled = true;
-                gameInfoLabel.Text = "Hero " + (gameLogic.HeroBeingAttacked + 1) + " is being attacked by Enemy " + (gameLogic.CurrentTurnEnemy + 1) + ", press the defend button!";
+                if(gameLogic.TurnOrderHeros[gameLogic.CurrentTurnEnemy].CurrentHitPoints > 0)
+                {
+                    if(gameLogic.DragonSpecialAttack == 1)
+                    {
+                        foreach(var hero in heroPBs)
+                        {
+                            if (heroPBs[heroPBs.IndexOf(hero)].Image != null)
+                            {
+                                heroPBs[heroPBs.IndexOf(hero)].BackColor = Color.Yellow;
+                            }
+                        }
+                        gameInfoLabel.Text = "All the Heros are being attacked by Enemy " + (gameLogic.CurrentTurnEnemy + 1) + ", press the defend button!";
+                    }
+                    else
+                    {
+                        heroPBs[gameLogic.HeroBeingAttacked].BackColor = Color.Yellow;
+                        gameInfoLabel.Text = "Hero " + (gameLogic.HeroBeingAttacked + 1) + " is being attacked by Enemy " + (gameLogic.CurrentTurnEnemy + 1) + ", press the defend button!";
+                    }
+                    enemyPBs[gameLogic.CurrentTurnEnemy].BackColor = Color.Green;
+                    defendBtn.Enabled = true;
+                    attackBtn.Enabled = true;
+                    specialBtn.Enabled = true;
+                    gameLogic.DragonSpecialAttack = 0;
+                }
+                else
+                {
+                    heroPBs[gameLogic.HeroBeingAttacked].BackColor = Color.Red;
+                    enemyPBs[gameLogic.CurrentTurnEnemy].BackColor = Color.Green;
+                    attackBtn.Enabled = true;
+                    specialBtn.Enabled = true;
+                    gameInfoLabel.Text = "Hero was killed by " + (gameLogic.HeroBeingAttacked + 1) + " Enemy " + (gameLogic.CurrentTurnEnemy + 1);
+                }  
             }
             else
             {

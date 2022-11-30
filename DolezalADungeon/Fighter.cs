@@ -15,10 +15,10 @@ namespace DolezalADungeon
         private static int fighterMagicDefense = 15;
         private static string fighterName = "Fighter";
         private static string fighterSpriteName = "C:\\Users\\macmi\\OneDrive\\Documents\\CS 3020\\DolezalADungeon\\sprites\\Fighter.png";
-        private static string specialName = "No Special";
+        private static string specialName = "";
         private static int fighterSkillPoints = 0;
 
-        public Fighter() : base(specialName, specialName, fighterSkillPoints, fighterName, fighterSpriteName, fighterHitPoints, fighterSpeed, fighterStrength,
+        public Fighter() : base(specialName, fighterSkillPoints, fighterName, fighterSpriteName, fighterHitPoints, fighterSpeed, fighterStrength,
             fighterIntelligence, fighterDefense, fighterMagicDefense)
         {
         }
