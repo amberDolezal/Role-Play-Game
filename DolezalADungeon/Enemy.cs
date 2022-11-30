@@ -21,7 +21,7 @@ namespace DolezalADungeon
         private int magicDefense;
 
         public Enemy(string specialName1, string specialName2, int skillPoints, string name, string spriteName, double hitPoints, int speed, int strength, 
-            int intelligence, int defense, int magicDefense) : base(name, spriteName, hitPoints, speed, strength, intelligence, defense, magicDefense)
+            int intelligence, int defense, int magicDefense) : base(name, spriteName, hitPoints, speed, strength, intelligence, defense, magicDefense, skillPoints, specialName1, specialName2)
         {
             this.specialName1 = specialName1;
             this.specialName2 = specialName2;
@@ -34,6 +34,7 @@ namespace DolezalADungeon
             this.intelligence = intelligence;
             this.defense = defense;
             this.magicDefense = magicDefense;
+            this.skillPoints = skillPoints;
         }
 
         public string SpecialName1 { get => specialName1; }

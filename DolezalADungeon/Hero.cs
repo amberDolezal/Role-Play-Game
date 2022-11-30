@@ -7,7 +7,8 @@ namespace DolezalADungeon
 {
     public class Hero : Character
     {
-        private string specialName;
+        private string specialName1;
+        private string specialName2;
         private int skillPoints;
         private string name;
         private string spriteName;
@@ -18,10 +19,11 @@ namespace DolezalADungeon
         private int defense;
         private int magicDefense;
 
-        public Hero(string specialName, int skillPoints, string name, string spriteName, double hitPoints, int speed, int strength,
-            int intelligence, int defense, int magicDefense) : base(name, spriteName, hitPoints, speed, strength, intelligence, defense, magicDefense)
+        public Hero(string specialName1, string specialName2, int skillPoints, string name, string spriteName, double hitPoints, int speed, int strength,
+            int intelligence, int defense, int magicDefense) : base(name, spriteName, hitPoints, speed, strength, intelligence, defense, magicDefense, skillPoints, specialName1, specialName2)
         {
-            this.specialName = specialName;
+            this.specialName1 = specialName1;
+            this.specialName2 = specialName2;
             this.skillPoints = skillPoints;
             this.name = name;
             this.spriteName = spriteName;
@@ -33,6 +35,5 @@ namespace DolezalADungeon
             this.magicDefense = magicDefense;
         }
 
-        public string SpecialName { get => specialName; }
     }
 }

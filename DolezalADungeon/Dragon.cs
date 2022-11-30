@@ -8,7 +8,7 @@ namespace DolezalADungeon
     public class Dragon : Enemy
     {
         private static int dragonDefense = 45;
-        private static double dragonHitPoints = 0.50;
+        private static double dragonHitPoints = 50;
         private static int dragonStrength = 20;
         private static int dragonSpeed = 4;
         private static int dragonIntelligence = 30;

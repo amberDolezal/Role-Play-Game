@@ -9,8 +9,10 @@ namespace DolezalADungeon
     {
         private string action;
         private int enemyTag;
+        private int heroTag;
 
         public string Action { get => action; set => action = value; }
         public int EnemyTag { get => enemyTag; set => enemyTag = value; }
+        public int HeroTag { get => heroTag; set => heroTag = value; }
     }
 }
