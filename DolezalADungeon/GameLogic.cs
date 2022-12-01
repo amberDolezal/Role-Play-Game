@@ -7,6 +7,7 @@ namespace DolezalADungeon
 {
     public class GameLogic
     {
+        //Initialize variables 
         private int currentTurnHero;
         private int previousTurnHero;
         private int currentTurnEnemy;
@@ -23,11 +24,11 @@ namespace DolezalADungeon
         private int numberOfWins = 0;
         private int numberOfGames = 0;
         private int dragonSpecialAttack = 0;
+        private Random characterInt = new Random();
 
         public event EventHandler<UpdateEventArgs> Update;
 
-        private Random characterInt = new Random();
-
+        //GameLogic constructor
         public GameLogic()
         {
             turnOrderHeros = new List<Character>();
@@ -40,6 +41,7 @@ namespace DolezalADungeon
             LoadRecords();  
         }
 
+        //Fill turn order heros list with fastest speed first
         public void FillTurnOrderHeros()
         {
             Character hero1 = PickHeroCharacter();
@@ -75,6 +77,7 @@ namespace DolezalADungeon
             }
         }
 
+        //Fill in turn order enemies list with fastest speed first
         public void FillTurnOrderEnemies()
         {
             int numberOfEnemies = characterInt.Next(3);
@@ -95,7 +98,6 @@ namespace DolezalADungeon
                     turnOrderHeros.Add(enemy1);
                 }
             }
-
             if(numberOfEnemies == 2)
             {
                 Character enemy3 = PickEnemyCharacter();
@@ -117,6 +119,8 @@ namespace DolezalADungeon
                 }
             }
         }
+
+        //Randomly pick a hero character
         public Character PickHeroCharacter()
         {
             int character = characterInt.Next(3);
@@ -136,6 +140,8 @@ namespace DolezalADungeon
             }
             return hero;
         }
+
+        //Randomly pick a enemy character
         public Character PickEnemyCharacter()
         {
             int character = characterInt.Next(3);
@@ -155,6 +161,7 @@ namespace DolezalADungeon
             }
             return enemy;
         }
+
         public void CheckIfHeroDied(Character hero)
         {
             if(hero.CurrentHitPoints <= 0)
@@ -169,9 +176,10 @@ namespace DolezalADungeon
                 enemy.CurrentHitPoints = 0;
             }
         }
-        public void PlayerTurnDefend(int enemyNum, int attackPoints)
+
+        public void PlayerTurnDefend(int heroNum, int enemyNum, int attackPoints)
         {
-            turnOrderHeros[currentTurnHero].Defend(turnOrderEnemies[enemyNum], attackPoints);
+            turnOrderHeros[heroNum].Defend(turnOrderEnemies[enemyNum], attackPoints);
         }
 
         public List<int> EnemyTurn(Character enemy)
@@ -205,11 +213,6 @@ namespace DolezalADungeon
             result.Add(attackPoints);
             result.Add(chooseDragonAttack);
             return result;
-        }
-
-        public void GenerateEncounter()
-        {
-            throw new System.NotImplementedException();
         }
 
         public void UpdateGUI()

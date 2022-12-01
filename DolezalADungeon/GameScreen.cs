@@ -6,23 +6,22 @@ namespace DolezalADungeon
 {
     public partial class GameScreen : Form
     {
+        //Initialize variables 
         private string queuedAction;
-
+        private GameLogic gameLogic;
+        private Random characterInt = new Random();
         private Label heroStatsLabel = new Label();
         private Label enemyStatsLabel = new Label();
         private Label gameInfoLabel = new Label();
 
-        public event EventHandler<TurnReadyEventArgs> TurnReady;
-
-        List<PictureBox> heroPBs = new List<PictureBox>();
-        List<PictureBox> enemyPBs = new List<PictureBox>();
-
-        private Random characterInt = new Random();
-
-        private GameLogic gameLogic;
+        private List<PictureBox> heroPBs = new List<PictureBox>();
+        private List<PictureBox> enemyPBs = new List<PictureBox>();
         private List<Character> heroList = new List<Character>();
         private List<Character> enemyList = new List<Character>();
 
+        public event EventHandler<TurnReadyEventArgs> TurnReady;
+
+        //GameScreen constructor, with GameLogic as an input
         public GameScreen(GameLogic game)
         {
             InitializeComponent();
@@ -47,6 +46,8 @@ namespace DolezalADungeon
             specialBtn.Enabled = false;
 
         }
+
+        //Initializes and fills the hero status label with initial hit points and skill points
         public void FillStatsHero()
         {
             heroStatsLabel.Size = heroStats.Size;
@@ -59,6 +60,8 @@ namespace DolezalADungeon
             heroStatsLabel.Text = heroStatsTitle + hero1Stats + hero2Stats + hero3Stats;
             this.Controls.Add(heroStatsLabel);   
         }
+
+        //Initializes and fills the enemy status label with initial hit points and skill points
         public void FillStatsEnemy()
         {
             enemyStatsLabel.Size = enemyStats.Size;
@@ -80,6 +83,8 @@ namespace DolezalADungeon
             enemyStatsLabel.Text = enemyStatsTitle + enemy1Stats + enemy2Stats + enemy3Stats;
             this.Controls.Add(enemyStatsLabel);
         }
+
+        //Initializes game info label 
         public void FillGameInfo()
         {
             gameInfoLabel.Size = gameInfo.Size;
@@ -87,8 +92,11 @@ namespace DolezalADungeon
             gameInfoLabel.BackColor = Color.PaleTurquoise;
             this.Controls.Add(gameInfoLabel);
         }
+        
+        //Fills all the picture boxes according to the amount of heros and enemies
         private void PrepBoard()
         {
+            //Fill hero 3 picture boxes and add them to heroPB list
             heroPBs.Add(hero1);
             FillHeroPictureBox(hero1, 1);
             heroPBs.Add(hero2);
@@ -96,6 +104,7 @@ namespace DolezalADungeon
             heroPBs.Add(hero3);
             FillHeroPictureBox(hero3, 3);
 
+            //Fill enemy picture boxes based on a predetermined amount and add them to the enemyPB list
             enemyPBs.Add(enemy1);
             FillEnemyPictureBox(enemy1, 1);
 
@@ -111,6 +120,7 @@ namespace DolezalADungeon
             }
         }
 
+        //Fills hero picture boxes with the correct sprite image based on the GameLogic hero list
         public void FillHeroPictureBox(PictureBox heroPB, int heroNum)
         {
             if(heroNum == 1)
@@ -134,9 +144,9 @@ namespace DolezalADungeon
                 heroPB.SizeMode = PictureBoxSizeMode.StretchImage;
                 heroPB.Name = heroList[2].Name;
             }
-
         }
 
+        //Fills enemy picture boxes with the correct sprite image based on the GameLogic enemy list
         public void FillEnemyPictureBox(PictureBox heroPB, int enemyNum)
         {
             if (enemyNum == 1)
@@ -162,23 +172,7 @@ namespace DolezalADungeon
             }
         }
 
-        public void UpdateEnemyStats()
-        {
-            string enemyStatsTitle = "Enemy Statistics\n";
-            string enemy1Stats = enemyPBs[0].Name + " - Hit Points: " + gameLogic.TurnOrderEnemies[0].CurrentHitPoints + "     Skill Points: " + gameLogic.TurnOrderEnemies[0].SkillPoints + "\n";
-            string enemy2Stats = "";
-            string enemy3Stats = "";
-
-            if (enemyPBs.Count >= 2)
-            {
-                enemy2Stats = enemyPBs[1].Name + " - Hit Points: " + gameLogic.TurnOrderEnemies[1].CurrentHitPoints + "     Skill Points: " + gameLogic.TurnOrderEnemies[1].SkillPoints + "\n";
-            }
-            if (enemyPBs.Count == 3)
-            {
-                enemy3Stats = enemyPBs[2].Name + " - Hit Points: " + gameLogic.TurnOrderEnemies[2].CurrentHitPoints + "     Skill Points: " + gameLogic.TurnOrderEnemies[2].SkillPoints + "\n";
-            }
-            enemyStatsLabel.Text = enemyStatsTitle + enemy1Stats + enemy2Stats + enemy3Stats;
-        }
+        //Updates the hero stats label with the current hit points
         public void UpdateHeroStats()
         {
             string heroStatsTitle = "Hero Statistics\n";
@@ -196,6 +190,27 @@ namespace DolezalADungeon
             }
             heroStatsLabel.Text = heroStatsTitle + hero1Stats + hero2Stats + hero3Stats;
         }
+
+        //Updates the enemy stats label with the current hit points
+        public void UpdateEnemyStats()
+        {
+            string enemyStatsTitle = "Enemy Statistics\n";
+            string enemy1Stats = enemyPBs[0].Name + " - Hit Points: " + gameLogic.TurnOrderEnemies[0].CurrentHitPoints + "     Skill Points: " + gameLogic.TurnOrderEnemies[0].SkillPoints + "\n";
+            string enemy2Stats = "";
+            string enemy3Stats = "";
+
+            if (enemyPBs.Count >= 2)
+            {
+                enemy2Stats = enemyPBs[1].Name + " - Hit Points: " + gameLogic.TurnOrderEnemies[1].CurrentHitPoints + "     Skill Points: " + gameLogic.TurnOrderEnemies[1].SkillPoints + "\n";
+            }
+            if (enemyPBs.Count == 3)
+            {
+                enemy3Stats = enemyPBs[2].Name + " - Hit Points: " + gameLogic.TurnOrderEnemies[2].CurrentHitPoints + "     Skill Points: " + gameLogic.TurnOrderEnemies[2].SkillPoints + "\n";
+            }
+            enemyStatsLabel.Text = enemyStatsTitle + enemy1Stats + enemy2Stats + enemy3Stats;
+        }
+
+        //If player wins updates records, and restarts application
         public void CheckIfPlayerWon()
         {
             if (gameLogic.PlayerHasWon)
@@ -207,6 +222,7 @@ namespace DolezalADungeon
             }
         }
 
+        //If play loses updates records, and restarts application
         public void CheckIfPlayerLost()
         {
             if (gameLogic.PlayerHasLost)
@@ -216,6 +232,8 @@ namespace DolezalADungeon
                 Application.Restart();
             }
         }
+
+        //Gets rid of sprite image in hero PB if the hero is dead
         public void CheckIfHeroIsDead(List<Character> heros)
         {
             foreach(var hero in heros)
@@ -225,8 +243,9 @@ namespace DolezalADungeon
                     heroPBs[heros.IndexOf(hero)].Image = null;
                 }
             }
- 
         }
+
+        //Gets rid of the sprite image in enemy PB if the enemy is dead
         public void CheckIfEnemyIsDead(List<Character> enemies)
         {
             foreach (var enemy in enemies)
@@ -237,6 +256,8 @@ namespace DolezalADungeon
                 }
             }
         }
+
+        //Only shows the special button if the hero that is taking the turn is a Cleric
         private void SpecialBtnVisibility(int characterIndex)
         {
             if (gameLogic.TurnOrderHeros[characterIndex].GetType() == typeof(Cleric))
@@ -250,8 +271,10 @@ namespace DolezalADungeon
             }
         }
 
+        //Executes on every turn hero and enemy
         public void OnUpdate_Handler(object sender, UpdateEventArgs e)
         {
+            //Check the status of the game before doing any moves 
             UpdateEnemyStats();
             UpdateHeroStats();
             CheckIfHeroIsDead(gameLogic.TurnOrderHeros);
@@ -259,6 +282,7 @@ namespace DolezalADungeon
             CheckIfPlayerLost();
             CheckIfPlayerWon();
 
+            //Change the back color for all the picture boxes back to transparent 
             foreach (var enemy in enemyPBs)
             {
                 enemy.BackColor = Color.Transparent;
@@ -268,41 +292,13 @@ namespace DolezalADungeon
             {
                 hero.BackColor = Color.Transparent;
             }
+
+            //If it is the enemy's turn, allow player to be able to defend 
             if (gameLogic.EncounterCount % 2 != 0)
             {
-                if(gameLogic.TurnOrderHeros[gameLogic.CurrentTurnEnemy].CurrentHitPoints > 0)
-                {
-                    if(gameLogic.DragonSpecialAttack == 1)
-                    {
-                        foreach(var hero in heroPBs)
-                        {
-                            if (heroPBs[heroPBs.IndexOf(hero)].Image != null)
-                            {
-                                heroPBs[heroPBs.IndexOf(hero)].BackColor = Color.Yellow;
-                            }
-                        }
-                        gameInfoLabel.Text = "All the Heros are being attacked by Enemy " + (gameLogic.CurrentTurnEnemy + 1) + ", press the defend button!";
-                    }
-                    else
-                    {
-                        heroPBs[gameLogic.HeroBeingAttacked].BackColor = Color.Yellow;
-                        gameInfoLabel.Text = "Hero " + (gameLogic.HeroBeingAttacked + 1) + " is being attacked by Enemy " + (gameLogic.CurrentTurnEnemy + 1) + ", press the defend button!";
-                    }
-                    enemyPBs[gameLogic.CurrentTurnEnemy].BackColor = Color.Green;
-                    defendBtn.Enabled = true;
-                    attackBtn.Enabled = true;
-                    specialBtn.Enabled = true;
-                    gameLogic.DragonSpecialAttack = 0;
-                }
-                else
-                {
-                    heroPBs[gameLogic.HeroBeingAttacked].BackColor = Color.Red;
-                    enemyPBs[gameLogic.CurrentTurnEnemy].BackColor = Color.Green;
-                    attackBtn.Enabled = true;
-                    specialBtn.Enabled = true;
-                    gameInfoLabel.Text = "Hero was killed by " + (gameLogic.HeroBeingAttacked + 1) + " Enemy " + (gameLogic.CurrentTurnEnemy + 1);
-                }  
+                EnemyTurn();
             }
+            //Players turn to attack 
             else
             {
                 heroPBs[gameLogic.CurrentTurnHero].BackColor = Color.Green;
@@ -313,32 +309,73 @@ namespace DolezalADungeon
             SpecialBtnVisibility(gameLogic.CurrentTurnHero);
         }
 
+        //Change backcolor of hero being attacked to the correct color
+        private void EnemyTurn()
+        {
+            //if the hero being attacked is still alive 
+            if (gameLogic.TurnOrderHeros[gameLogic.HeroBeingAttacked].CurrentHitPoints > 0)
+            {
+                //if the dragon is doing its swipe attack 
+                if (gameLogic.DragonSpecialAttack == 1)
+                {
+                    foreach (var hero in heroPBs)
+                    {
+                        if (heroPBs[heroPBs.IndexOf(hero)].Image != null)
+                        {
+                            heroPBs[heroPBs.IndexOf(hero)].BackColor = Color.Yellow;
+                        }
+                    }
+                    gameInfoLabel.Text = "All the Heros are being attacked by Enemy " + (gameLogic.CurrentTurnEnemy + 1) + ", press the defend button!";
+                }
+                //If any other attack is being performed
+                else
+                {
+                    heroPBs[gameLogic.HeroBeingAttacked].BackColor = Color.Yellow;
+                    gameInfoLabel.Text = "Hero " + (gameLogic.HeroBeingAttacked + 1) + " is being attacked by Enemy " + (gameLogic.CurrentTurnEnemy + 1) + ", press the defend button!";
+                }
+                enemyPBs[gameLogic.CurrentTurnEnemy].BackColor = Color.Green;
+                defendBtn.Enabled = true;
+                attackBtn.Enabled = true;
+                specialBtn.Enabled = true;
+                gameLogic.DragonSpecialAttack = 0; //reset dragon attack variable
+            }
+            //If the hero being attacked is dead
+            else
+            {
+                heroPBs[gameLogic.HeroBeingAttacked].BackColor = Color.Red;
+                enemyPBs[gameLogic.CurrentTurnEnemy].BackColor = Color.Green;
+                attackBtn.Enabled = true;
+                specialBtn.Enabled = true;
+                gameInfoLabel.Text = "Hero was killed by " + (gameLogic.HeroBeingAttacked + 1) + " Enemy " + (gameLogic.CurrentTurnEnemy + 1);
+            }
+        }
+
         //Updates wins in menu strip
         private void UpdateWinsLabel(int numberOfWins)
         {
             wins0ToolStripMenuItem.Text = $"Wins: {numberOfWins}";
         }
+
         //Updates number of games in menu strip
         private void UpdateGamesLabel(int numberOfGames)
         {
             games0ToolStripMenuItem.Text = $"Games: {numberOfGames}";
         }
 
+        //Executes when the attack or special button is clicked
         public void ActionButtonClick_Handler(object sender, EventArgs e)
         {
+            //save action button selected reset hero PB back color
             string action = ((Button)sender).Tag.ToString();
             queuedAction = action;
-            heroPBs[gameLogic.CurrentTurnHero].BackColor = Color.Green;
             heroPBs[gameLogic.HeroBeingAttacked].BackColor = Color.Transparent;
+            heroPBs[gameLogic.CurrentTurnHero].BackColor = Color.Green;
 
             switch (action)
             {
                 case "Attack":
                     gameInfoLabel.Text = "Attack has been chosen. Choose your target";
-                    attackBtn.Enabled = false;
-                    defendBtn.Enabled = false;
-                    specialBtn.Enabled = false;
-
+                    //Change the all the alive enimes back color to red and enable the click handler for each enemy 
                     foreach (var enemy in enemyPBs)
                     {
                         if (gameLogic.TurnOrderEnemies[enemyPBs.IndexOf(enemy)].CurrentHitPoints != 0)
@@ -356,7 +393,7 @@ namespace DolezalADungeon
                     if (gameLogic.TurnOrderHeros[gameLogic.CurrentTurnHero].GetType() == typeof(Cleric))
                     {
                         gameInfoLabel.Text = "Heal has been chosen. Choose your hero target";
-
+                        //Change all the alive heros back color to green and enable the click handler for each hero 
                         foreach (var hero in heroPBs)
                         {
                             if (gameLogic.TurnOrderHeros[heroPBs.IndexOf(hero)].CurrentHitPoints != 0)
@@ -370,6 +407,7 @@ namespace DolezalADungeon
                     {
                         specialBtn.Text = "Special";
                         gameInfoLabel.Text = "Special Attack has been chosen. Choose your enemy target";
+                        //Changel all the alive enemies back color to red and enable the click handler for each enemy
                         foreach (var enemy in enemyPBs)
                         {
                             if (gameLogic.TurnOrderEnemies[enemyPBs.IndexOf(enemy)].CurrentHitPoints <= 0)
@@ -386,6 +424,8 @@ namespace DolezalADungeon
                     break;
             }
         }
+
+        //Executes when the defend button is clicked 
         public void DefendButtonClick_Handler(object sender, EventArgs e)
         {
             string action = ((Button)sender).Tag.ToString();
@@ -393,11 +433,26 @@ namespace DolezalADungeon
             attackBtn.Enabled = false;
             defendBtn.Enabled = false;
             specialBtn.Enabled = false;
-            gameLogic.PlayerTurnDefend(gameLogic.CurrentTurnEnemy, gameLogic.AttackPoints);
-            heroPBs[gameLogic.HeroBeingAttacked].BackColor = Color.Transparent;
+            //If the dragon is using the swipe attack, all heros that are alive can defend 
+            if(gameLogic.DragonSpecialAttack == 1)
+            {
+                foreach(var hero in heroPBs)
+                {
+                    gameLogic.PlayerTurnDefend(heroPBs.IndexOf(hero), gameLogic.CurrentTurnEnemy, gameLogic.AttackPoints);
+                    heroPBs[heroPBs.IndexOf(hero)].BackColor = Color.Transparent;
+                }
+            }
+            //If it is any other attack, only the hero being attacked can defend
+            else
+            {
+                gameLogic.PlayerTurnDefend(gameLogic.HeroBeingAttacked, gameLogic.CurrentTurnEnemy, gameLogic.AttackPoints);
+                heroPBs[gameLogic.HeroBeingAttacked].BackColor = Color.Transparent;
+            }
             gameLogic.EncounterCount++;
             gameLogic.UpdateGUI();
         }
+
+        //Executes when an enemy has been clicked
         public void EnemyPBClick_Handler(object sender, EventArgs e)
         {
             int targetTag = int.Parse(((PictureBox)sender).Tag.ToString());
@@ -406,6 +461,8 @@ namespace DolezalADungeon
             args.EnemyTag = targetTag;
             OnTurnReady(this, args);
         }
+
+        //Executes when a hero has been clicked
         public void HeroPBClick_Handler(object sender, EventArgs e)
         {
             int targetTag = int.Parse(((PictureBox)sender).Tag.ToString());
@@ -419,7 +476,8 @@ namespace DolezalADungeon
         {
             TurnReady?.Invoke(sender, e);
         }
-
+        
+        //Menu strip clicks for restart and exit
         private void restartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Restart();
