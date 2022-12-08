@@ -19,11 +19,13 @@ namespace DolezalADungeon
         private int magicDefense;
         private double currentHitPoints;
         private int skillPoints;
-        private string specialName;  
+        private string specialName;
+        private int specialChoice;
+        private int heroHitPointsPool = 100;
         #endregion
 
         #region Constructors
-        public Character(string name, string spriteName, double hitPoints, int speed, int strength, int intelligence, int defense, int magicDefense, int skillPoints, string specialName)
+        public Character(string name, string spriteName, double hitPoints, int speed, int strength, int intelligence, int defense, int magicDefense, int skillPoints, string specialName, int specialChoice)
         {
             this.name = name;
             this.spriteName = spriteName;
@@ -37,6 +39,7 @@ namespace DolezalADungeon
             this.magicDefense = magicDefense;
             this.skillPoints = skillPoints;
             this.specialName = specialName;
+            this.specialChoice = specialChoice;
         }
         public Character()
         {
@@ -57,20 +60,22 @@ namespace DolezalADungeon
         public int MagicDefense { get => magicDefense; }
         public double CurrentHitPoints { get => currentHitPoints; set => currentHitPoints = value; }
         public int SkillPoints { get => skillPoints; }
-        public string SpecialName { get => specialName; }
+        public string SpecialName { get => specialName; set => specialName = value; }
+        public int HeroHitPointsPool { get => heroHitPointsPool; }
+        public int SpecialChoice { get => specialChoice; set => specialChoice = value; }
         #endregion
 
         #region Methods
-        public int Attack(Character target)
+        public virtual int Attack(Character target)
         {
-            int reduceHitPointsBy = (int)strength/3;
+            int reduceHitPointsBy = (int)(strength + intelligence) / 3;
             target.currentHitPoints = target.currentHitPoints - reduceHitPointsBy;
             return reduceHitPointsBy;
         }
 
-        public void Defend(Character attacker, int attackPoints)
+        public virtual void Defend(Character attacker, int attackPoints)
         {
-            int reduceAttackPointsBy = attackPoints-(defense/10);
+            int reduceAttackPointsBy = attackPoints - (defense / 10);
             currentHitPoints = currentHitPoints + reduceAttackPointsBy;
         }
 

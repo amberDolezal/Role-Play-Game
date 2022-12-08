@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="DolezalADungeon.GameScreen">
-    <Position X="13.75" Y="0.75" Width="1.5" />
+  <Class Name="DolezalADungeon.GameScreen" Collapsed="true">
+    <Position X="17.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AWHQgBAwAKQAACQCAAiC0AADAAQAACIQBhQAAAAAwIo=</HashCode>
+      <HashCode>AWHYgBAwQKQAACwCAAiC0EATAgwAACJxBhQgQAAEwIo=</HashCode>
       <FileName>GameScreen.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DolezalADungeon.Program">
-    <Position X="12" Y="3" Width="1.5" />
+  <Class Name="DolezalADungeon.Program" Collapsed="true">
+    <Position X="14.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
@@ -17,91 +17,91 @@
   <Class Name="DolezalADungeon.Character">
     <Position X="6" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQIAAAABEAAAARAAAABAQBAIBEARAAQAAABgAAQCI=</HashCode>
+      <HashCode>AAAQICAAIBEIAAARAAAABAQBAIJECRACQgAAJgIAQCI=</HashCode>
       <FileName>Character.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DolezalADungeon.Hero">
-    <Position X="2.75" Y="6.75" Width="1.5" />
+    <Position X="2.75" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQIAAAABAAAAAAAAAAAAAAAAIEAQACQgAABAAAAAI=</HashCode>
       <FileName>Hero.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DolezalADungeon.Enemy">
-    <Position X="9.5" Y="6.75" Width="1.5" />
+    <Position X="9.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQIAAAABAAAAAAAAAAAAAAAAIEAQACQgAABAAAAAI=</HashCode>
       <FileName>Enemy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DolezalADungeon.Fighter">
-    <Position X="0.5" Y="9.25" Width="1.5" />
+    <Position X="0.5" Y="13.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAgAQEAAAQEAAAA=</HashCode>
+      <HashCode>AAABAAAAAAAEAAAAAAAAAAgAAIIQIAgAQEAAAQEAQAA=</HashCode>
       <FileName>Fighter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DolezalADungeon.Mage">
-    <Position X="2.75" Y="9.25" Width="1.5" />
+    <Position X="2.75" Y="13.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAEAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAQAw=</HashCode>
+      <HashCode>AQAAAAEAAEAAAAAAAAAAAAAAAIIACAAAAAAAEQAAQCw=</HashCode>
       <FileName>Mage.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DolezalADungeon.Cleric">
-    <Position X="5" Y="9.25" Width="1.5" />
+    <Position X="5" Y="13.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAAAgAAACAAACAAAAAAAAAAQAAAAQAQAAAAAAAAAA=</HashCode>
+      <HashCode>AgAAECwAAACAAAAAAgAAAAAAAYIQAAQAQAAAAAAAQAA=</HashCode>
       <FileName>Cleric.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DolezalADungeon.Bandit">
-    <Position X="7.25" Y="9.25" Width="1.5" />
+    <Position X="7.25" Y="13.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAAAAAAQAEAAAAIAAQAAAAAAAACACAAAAAA=</HashCode>
+      <HashCode>AAAgAABAAAAAAAAQAEAAAAIAAYIAAAAQAACACAAAQAQ=</HashCode>
       <FileName>Bandit.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DolezalADungeon.Ogre">
-    <Position X="9.5" Y="9.25" Width="1.5" />
+    <Position X="9.5" Y="13.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAQAQAAAAAAAAAAAAAABAAAAAAAAAAADAg=</HashCode>
+      <HashCode>AAAABAAAEgAQAQAQAAAAAAAAAIIABAAAAAAAAAAATAg=</HashCode>
       <FileName>Ogre.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DolezalADungeon.Dragon">
-    <Position X="11.75" Y="9.25" Width="1.5" />
+    <Position X="11.75" Y="13.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAAAQAAAAAAAAAAAAAAAIAACgAABAAABAAAgAAQAA=</HashCode>
+      <HashCode>AIAAACQAAAAAAAAAAAAAAAIAQKoAABABQBAAAgAAQAA=</HashCode>
       <FileName>Dragon.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DolezalADungeon.GameLogic">
-    <Position X="10" Y="0.75" Width="1.5" />
+  <Class Name="DolezalADungeon.GameLogic" Collapsed="true">
+    <Position X="16" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAIADBABAAACAAAgAAAAAAICAABAAAAAAEgAAA=</HashCode>
+      <HashCode>AAdQAkAAAARMpooFCQcRgQEUgAAAgGAAgAJQEcMEABA=</HashCode>
       <FileName>GameLogic.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DolezalADungeon.DolezalADungeon">
-    <Position X="12" Y="0.75" Width="1.5" />
+  <Class Name="DolezalADungeon.DolezalADungeon" Collapsed="true">
+    <Position X="14.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAgAAI=</HashCode>
       <FileName>DolezalADungeon.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DolezalADungeon.UpdateEventArgs">
-    <Position X="15.5" Y="0.75" Width="1.5" />
+  <Class Name="DolezalADungeon.UpdateEventArgs" Collapsed="true">
+    <Position X="17.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>UpdateEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DolezalADungeon.TurnReadyEventArgs">
-    <Position X="15.5" Y="2.25" Width="1.5" />
+  <Class Name="DolezalADungeon.TurnReadyEventArgs" Collapsed="true">
+    <Position X="16" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAACAAAAAgAAAAAgAAAAIAQ=</HashCode>
       <FileName>TurnReadyEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>

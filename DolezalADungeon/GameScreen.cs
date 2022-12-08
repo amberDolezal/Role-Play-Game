@@ -325,19 +325,18 @@ namespace DolezalADungeon
                             heroPBs[heroPBs.IndexOf(hero)].BackColor = Color.Yellow;
                         }
                     }
-                    gameInfoLabel.Text = "All the Heros are being attacked by Enemy " + (gameLogic.CurrentTurnEnemy + 1) + ", press the defend button!";
+                    gameInfoLabel.Text = "All the Heros are being attacked by Enemy " + (gameLogic.CurrentTurnEnemy + 1) + ", press the defend button! \n\nOr attack with Hero " + (gameLogic.CurrentTurnHero + 1) + ".";
                 }
                 //If any other attack is being performed
                 else
                 {
                     heroPBs[gameLogic.HeroBeingAttacked].BackColor = Color.Yellow;
-                    gameInfoLabel.Text = "Hero " + (gameLogic.HeroBeingAttacked + 1) + " is being attacked by Enemy " + (gameLogic.CurrentTurnEnemy + 1) + ", press the defend button!";
+                    gameInfoLabel.Text = "Hero " + (gameLogic.HeroBeingAttacked + 1) + " is being attacked by Enemy " + (gameLogic.CurrentTurnEnemy + 1) + ", press the defend button! \n\nOr attack with Hero " + (gameLogic.CurrentTurnHero + 1) + ".";
                 }
                 enemyPBs[gameLogic.CurrentTurnEnemy].BackColor = Color.Green;
                 defendBtn.Enabled = true;
                 attackBtn.Enabled = true;
                 specialBtn.Enabled = true;
-                gameLogic.DragonSpecialAttack = 0; //reset dragon attack variable
             }
             //If the hero being attacked is dead
             else
@@ -448,7 +447,9 @@ namespace DolezalADungeon
                 gameLogic.PlayerTurnDefend(gameLogic.HeroBeingAttacked, gameLogic.CurrentTurnEnemy, gameLogic.AttackPoints);
                 heroPBs[gameLogic.HeroBeingAttacked].BackColor = Color.Transparent;
             }
+            gameLogic.CheckIfHeroDied(gameLogic.TurnOrderHeros[gameLogic.HeroBeingAttacked]);
             gameLogic.EncounterCount++;
+            gameLogic.DragonSpecialAttack = 0; //reset dragon attack variable
             gameLogic.UpdateGUI();
         }
 
@@ -486,6 +487,14 @@ namespace DolezalADungeon
         private void instructionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void instructionsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("\t\t  Final Fantasy Grassland \n\nThis game will begin with it being your turn to attack. " +
+                "The enemy will automatically choose to defend or attack and then you will. This will continue until " +
+                "you kill all the enimes or they kill all your heros. There will be an attack, defend, and " +
+                "for certian heros a special button. The players hit points and skill points will be displayed at the top. \n\n\t\t    Good Luck!");
         }
     }
 }

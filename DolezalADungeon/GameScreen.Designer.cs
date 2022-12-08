@@ -215,8 +215,9 @@
             // instructionsToolStripMenuItem1
             // 
             this.instructionsToolStripMenuItem1.Name = "instructionsToolStripMenuItem1";
-            this.instructionsToolStripMenuItem1.Size = new System.Drawing.Size(270, 44);
+            this.instructionsToolStripMenuItem1.Size = new System.Drawing.Size(359, 44);
             this.instructionsToolStripMenuItem1.Text = "Instructions";
+            this.instructionsToolStripMenuItem1.Click += new System.EventHandler(this.instructionsToolStripMenuItem1_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -224,7 +225,7 @@
             this.createdByAmberDolezalToolStripMenuItem,
             this.toolStripMenuItem2});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(270, 44);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // createdByAmberDolezalToolStripMenuItem
