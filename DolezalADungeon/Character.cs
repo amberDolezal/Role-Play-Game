@@ -66,6 +66,7 @@ namespace DolezalADungeon
         #endregion
 
         #region Methods
+        //Methods will be overriden by each character 
         public virtual int Attack(Character target)
         {
             int reduceHitPointsBy = (int)(strength + intelligence) / 3;

@@ -242,6 +242,12 @@ namespace DolezalADungeon
                 {
                     heroPBs[heros.IndexOf(hero)].Image = null;
                 }
+                else
+                {
+                    Bitmap heroImage = new Bitmap(heros[heros.IndexOf(hero)].SpriteName);
+                    heroPBs[heros.IndexOf(hero)].Image = heroImage;
+                    heroPBs[heros.IndexOf(hero)].SizeMode = PictureBoxSizeMode.StretchImage;
+                }
             }
         }
 
@@ -253,6 +259,12 @@ namespace DolezalADungeon
                 if (enemy.CurrentHitPoints <= 0)
                 {
                     enemyPBs[enemies.IndexOf(enemy)].Image = null;
+                }
+                else
+                {
+                    Bitmap enemyImage = new Bitmap(enemies[enemies.IndexOf(enemy)].SpriteName);
+                    enemyPBs[enemies.IndexOf(enemy)].Image = enemyImage;
+                    enemyPBs[enemies.IndexOf(enemy)].SizeMode = PictureBoxSizeMode.StretchImage;
                 }
             }
         }
@@ -345,7 +357,7 @@ namespace DolezalADungeon
                 enemyPBs[gameLogic.CurrentTurnEnemy].BackColor = Color.Green;
                 attackBtn.Enabled = true;
                 specialBtn.Enabled = true;
-                gameInfoLabel.Text = "Hero was killed by " + (gameLogic.HeroBeingAttacked + 1) + " Enemy " + (gameLogic.CurrentTurnEnemy + 1);
+                gameInfoLabel.Text = "Hero was killed by " + (gameLogic.HeroBeingAttacked + 1) + " Enemy " + (gameLogic.CurrentTurnEnemy + 1) + "\n\nAttack with Hero " + (gameLogic.CurrentTurnHero + 1) + ".";
             }
         }
 
@@ -364,6 +376,8 @@ namespace DolezalADungeon
         //Executes when the attack or special button is clicked
         public void ActionButtonClick_Handler(object sender, EventArgs e)
         {
+            CheckIfPlayerLost();
+            CheckIfPlayerWon();
             //save action button selected reset hero PB back color
             string action = ((Button)sender).Tag.ToString();
             queuedAction = action;
@@ -427,6 +441,8 @@ namespace DolezalADungeon
         //Executes when the defend button is clicked 
         public void DefendButtonClick_Handler(object sender, EventArgs e)
         {
+            CheckIfPlayerWon();
+            CheckIfPlayerLost();
             string action = ((Button)sender).Tag.ToString();
             queuedAction = action;
             attackBtn.Enabled = false;
@@ -437,8 +453,11 @@ namespace DolezalADungeon
             {
                 foreach(var hero in heroPBs)
                 {
-                    gameLogic.PlayerTurnDefend(heroPBs.IndexOf(hero), gameLogic.CurrentTurnEnemy, gameLogic.AttackPoints);
-                    heroPBs[heroPBs.IndexOf(hero)].BackColor = Color.Transparent;
+                    if(gameLogic.TurnOrderHeros[heroPBs.IndexOf(hero)].CurrentHitPoints > 0)
+                    {
+                        gameLogic.PlayerTurnDefend(heroPBs.IndexOf(hero), gameLogic.CurrentTurnEnemy, gameLogic.AttackPoints);
+                        heroPBs[heroPBs.IndexOf(hero)].BackColor = Color.Transparent;
+                    }
                 }
             }
             //If it is any other attack, only the hero being attacked can defend
@@ -448,6 +467,7 @@ namespace DolezalADungeon
                 heroPBs[gameLogic.HeroBeingAttacked].BackColor = Color.Transparent;
             }
             gameLogic.CheckIfHeroDied(gameLogic.TurnOrderHeros[gameLogic.HeroBeingAttacked]);
+            CheckIfHeroIsDead(gameLogic.TurnOrderHeros);
             gameLogic.EncounterCount++;
             gameLogic.DragonSpecialAttack = 0; //reset dragon attack variable
             gameLogic.UpdateGUI();
@@ -489,6 +509,7 @@ namespace DolezalADungeon
             Application.Exit();
         }
 
+        //Brings up instructions in a message box
         private void instructionsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("\t\t  Final Fantasy Grassland \n\nThis game will begin with it being your turn to attack. " +

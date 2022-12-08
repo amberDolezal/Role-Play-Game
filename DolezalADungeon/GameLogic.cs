@@ -104,7 +104,7 @@ namespace DolezalADungeon
                 else
                 {
                     turnOrderEnemies[0] = enemy2;
-                    turnOrderHeros.Add(enemy1);
+                    turnOrderEnemies.Add(enemy1);
                 }
             }
             if(numberOfEnemies == 2)
@@ -425,6 +425,7 @@ namespace DolezalADungeon
             UpdateGUI();
         }
 
+        //Getters and setters
         public List<Character> TurnOrderHeros { get => turnOrderHeros; }
         public List<Character> TurnOrderEnemies { get => turnOrderEnemies; }
         public int CurrentTurnHero { get => currentTurnHero; set => currentTurnHero = value; }
